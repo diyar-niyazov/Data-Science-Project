@@ -1,8 +1,8 @@
 // Created by Diyar Niyazov and Isaac Novak
 
 public class Game {
-    private String name;
     private int rank;
+    private String name;
     private String platform;
     private int year;
     private String genre;
