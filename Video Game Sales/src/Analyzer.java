@@ -5,14 +5,21 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Analyzer {
-    private static Game[] data;
+    private static Game[] games = new Game[16600];
     private static final File csvFile = new File("Video Game Sales\\assets\\vgsales.csv\\vgsales.csv");
 
     public void parseCSV() throws IOException {
-        Scanner in = new Scanner(csvFile);
-        String line;
-        while (in.hasNextLine()) {
-            line = in.nextLine();
+        try (Scanner in = new Scanner(csvFile)) {
+            String line;
+            String[] game_values = new String[11];
+            while (in.hasNextLine()) {
+                line = in.nextLine();
+                game_values = line.split(",");
+                System.out.println(Arrays.toString(game_values));
+                for(Game game : games) {
+                    game = new Game(game_values);
+                }
+            }
         }
     }
 
@@ -34,7 +41,7 @@ public class Analyzer {
      *
      *Σx² and Σy² are the sums of the squares of x and y values.
      */
-    
+
     public int correlationCoefficient(Game[] data) {
 
         return 0;

@@ -1,5 +1,5 @@
 // Created by Diyar Niyazov and Isaac Novak
-
+// Rank,Name,Platform,Year,Genre,Publisher,NA_Sales,EU_Sales,JP_Sales,Other_Sales,Global_Sales
 public class Game {
     private int rank;
     private String name;
@@ -7,34 +7,30 @@ public class Game {
     private int year;
     private String genre;
     private String publisher;
-    private int na_sales;
-    private int eu_sales;
-    private int jp_sales;
-    private int other_sales;
-    private int global_sales;
+    private double na_sales;
+    private double eu_sales;
+    private double jp_sales;
+    private double other_sales;
+    private double global_sales;
 
-    public Game(String name,
-            int rank,
-            String platform,
-            int year,
-            String genre,
-            String publisher,
-            int na_sales,
-            int eu_sales,
-            int jp_sales,
-            int other_sales,
-            int global_sales) {
-        this.name = name;
-        this.rank = rank;
-        this.platform = platform;
-        this.year = year;
-        this.genre = genre;
-        this.publisher = publisher;
-        this.na_sales = na_sales;
-        this.eu_sales = eu_sales;
-        this.jp_sales = jp_sales;
-        this.other_sales = other_sales;
-        this.global_sales = global_sales;
+    public Game(String[] game_values) {
+        this.rank = Integer.parseInt(game_values[0]);
+        this.name = game_values[1];
+        this.platform = game_values[2];
+        if (!game_values[3].equals("N/A"))
+            this.year = Integer.parseInt(game_values[3]);
+        this.genre = game_values[4];
+        this.publisher = game_values[5];
+        if (!game_values[6].equals("N/A"))
+            this.na_sales = Double.parseDouble(game_values[6]);
+        if (!game_values[7].equals("N/A"))
+            this.eu_sales = Double.parseDouble(game_values[7]);
+        if (!game_values[8].equals("N/A"))
+            this.jp_sales = Double.parseDouble(game_values[8]);
+        if (!game_values[9].equals("N/A"))
+            this.other_sales = Double.parseDouble(game_values[9]);
+        if (!game_values[10].equals("N/A"))
+            this.global_sales = Double.parseDouble(game_values[10]);
     }
 
     public String getName() {
@@ -61,23 +57,23 @@ public class Game {
         return publisher;
     }
 
-    public int getNa_sales() {
+    public double getNa_sales() {
         return na_sales;
     }
 
-    public int getEu_sales() {
+    public double getEu_sales() {
         return eu_sales;
     }
 
-    public int getJp_sales() {
+    public double getJp_sales() {
         return jp_sales;
     }
 
-    public int getOther_sales() {
+    public double getOther_sales() {
         return other_sales;
     }
 
-    public int getGlobal_sales() {
+    public double getGlobal_sales() {
         return global_sales;
     }
 }
