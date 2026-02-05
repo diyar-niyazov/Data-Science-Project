@@ -35,48 +35,48 @@ public class CorrelationCoefficient {
      *Σx² and Σy² are the sums of the squares of x and y values.
      */
 
-     public double[][] calculateCorrelationCoefficients() {
-        int r;
-        int n = 16600;
+    //  public double[][] calculateCorrelationCoefficients() {
+    //     int r;
+    //     int n = 16600;
 
-        int row = 0;
-        int column = 0;
+    //     int row = 0;
+    //     int column = 0;
 
-        CORRELATION_COEFFICIENTS[row][column] = r;
-
-
-
-        return CORRELATION_COEFFICIENTS;
-    }
-
-    public double getSum() {
-        double rankSum = sigma(RANK);
-        double nameSum = sigma(NAME);
-        double platformSum = sigma(PLATFORM);
-        double yearSum = sigma(YEAR);
-        double genreSum = sigma(GENRE);
-        double publisherSum = sigma(PUBLISHER);
-        double na_salesSum = sigma(NA_SALES);
-        double eu_salesSum = sigma(EU_SALES);
-        double jp_salesSum = sigma(JP_SALES);
-        double other_salesSum = sigma(OTHER_SALES;);
-        double global_salesSum = sigma(GLOBAL_SALES);
-
-        return
-    }
-
-    public double getSumOfSquares() {
-
-    }
-
-    public double sigma(Category category) {
-        double sum = 0;
+    //     CORRELATION_COEFFICIENTS[row][column] = r;
 
 
 
-        for(Game game : games) {
+    //     return CORRELATION_COEFFICIENTS;
+    // }
 
-        }
-        return sum;
-    }
+    // public double getSum() {
+    //     double rankSum = sigma(RANK);
+    //     double nameSum = sigma(NAME);
+    //     double platformSum = sigma(PLATFORM);
+    //     double yearSum = sigma(YEAR);
+    //     double genreSum = sigma(GENRE);
+    //     double publisherSum = sigma(PUBLISHER);
+    //     double na_salesSum = sigma(NA_SALES);
+    //     double eu_salesSum = sigma(EU_SALES);
+    //     double jp_salesSum = sigma(JP_SALES);
+    //     double other_salesSum = sigma(OTHER_SALES;);
+    //     double global_salesSum = sigma(GLOBAL_SALES);
+
+    //     return
+    // }
+
+    // public double getSumOfSquares() {
+
+    // }
+
+    // public double sigma(Category category) {
+    //     double sum = 0;
+
+
+
+    //     for(Game game : games) {
+
+    //     }
+    //     return sum;
+    // }
 }
