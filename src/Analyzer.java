@@ -46,8 +46,10 @@ public class Analyzer {
      *Σx² and Σy² are the sums of the squares of x and y values.
      */
 
-    public int correlationCoefficient(Game[] data) {
+    public int calculateCorrelationCoefficient() {
         int r;
+        int n = 16600;
+
         return 0;
     }
 }
