@@ -7,11 +7,11 @@ public class Game {
     private int year;
     private String genre;
     private String publisher;
-    private int na_sales;
-    private int eu_sales;
-    private int jp_sales;
-    private int other_sales;
-    private int global_sales;
+    private double na_sales;
+    private double eu_sales;
+    private double jp_sales;
+    private double other_sales;
+    private double global_sales;
 
     public Game(String name,
             int rank,
@@ -19,11 +19,11 @@ public class Game {
             int year,
             String genre,
             String publisher,
-            int na_sales,
-            int eu_sales,
-            int jp_sales,
-            int other_sales,
-            int global_sales) {
+            double na_sales,
+            double eu_sales,
+            double jp_sales,
+            double other_sales,
+            double global_sales) {
         this.name = name;
         this.rank = rank;
         this.platform = platform;
@@ -61,23 +61,23 @@ public class Game {
         return publisher;
     }
 
-    public int getNa_sales() {
+    public double getNa_sales() {
         return na_sales;
     }
 
-    public int getEu_sales() {
+    public double getEu_sales() {
         return eu_sales;
     }
 
-    public int getJp_sales() {
+    public double getJp_sales() {
         return jp_sales;
     }
 
-    public int getOther_sales() {
+    public double getOther_sales() {
         return other_sales;
     }
 
-    public int getGlobal_sales() {
+    public double getGlobal_sales() {
         return global_sales;
     }
 }
