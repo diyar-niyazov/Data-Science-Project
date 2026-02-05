@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Analyzer {
 
     private static final Game[] games = new Game[16600];
-    private static final File CSV_FILE = Paths.get("..", "assets", "vgsales.csv").toFile();
+    private static final File CSV_FILE = Paths.get( "Video Game Sales", "assets", "vgsales.csv").toFile();
 
     public void parseCSV() throws IOException {
         System.out.println(CSV_FILE.toString());
