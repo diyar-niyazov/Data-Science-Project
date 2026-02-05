@@ -47,7 +47,7 @@ public class Analyzer {
      */
 
     public int correlationCoefficient(Game[] data) {
-
+        int r;
         return 0;
     }
 }
