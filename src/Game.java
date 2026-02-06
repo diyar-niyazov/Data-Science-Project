@@ -1,104 +1,101 @@
-//vgsales.csv format:
-// Rank,Name,Platform,Year,Genre,Publisher,NA_Sales,EU_Sales,JP_Sales,Other_Sales,Global_Sales
 
 public class Game {
 
-    private final int rank;
+    private final int RANK = 0;
+    private final int NAME = 1;
+    private final int PLATFORM = 2;
+    private final int YEAR = 3;
+    private final int GENRE = 4;
+    private final int PUBLISHER = 5;
+    private final int NA_SALES = 6;
+    private final int EU_SALES = 7;
+    private final int JP_SALES = 8;
+    private final int OTHER_SALES = 9;
+    private final int GLOBAL_SALES = 10;
+
+    private final Integer rank;
     private final String name;
     private final String platform;
-    private final int year;
+    private final Integer year;
     private final String genre;
     private final String publisher;
-    private final double na_sales;
-    private final double eu_sales;
-    private final double jp_sales;
-    private final double other_sales;
-    private final double global_sales;
+    private final Double naSales;
+    private final Double euSales;
+    private final Double jpSales;
+    private final Double otherSales;
+    private final Double globalSales;
 
-    public Game(String[] game_values) {
-        if (game_values[0].matches("^\\d+$")) {
-            this.rank = Integer.parseInt(game_values[0]);
-        } else {
-            this.rank = -1;
+    private static int rankSum = 0;
+    private static int yearSum = 0;
+    private static double naSalesSum = 0;
+    private static double euSalesSum = 0;
+    private static double jpSalesSum = 0;
+    private static double otherSalesSum = 0;
+    private static double globalSalesSum = 0;
+
+    public Game(String[] values) {
+        Integer r = parseInt(values[RANK]);
+        if (r != null) {
+            rankSum += r;
         }
-        this.name = game_values[1];
-        this.platform = game_values[2];
-        if (game_values[3].matches("^\\d+$")) {
-            this.year = Integer.parseInt(game_values[3]);
-        } else {
-            this.year = -1;
+        rank = r;
+
+        Integer y = parseInt(values[YEAR]);
+        if (y != null) {
+            yearSum += y;
         }
-        this.genre = game_values[4];
-        this.publisher = game_values[5];
-        if (game_values[6].matches("^\\d+$|^\\d+\\.\\d+$")) {
-            this.na_sales = Double.parseDouble(game_values[6]);
-        } else {
-            this.na_sales = -1;
+        year = y;
+
+        Double na = parseDouble(values[NA_SALES]);
+        if (na != null) {
+            naSalesSum += na;
         }
-        if (game_values[7].matches("^\\d+$|^\\d+\\.\\d+$")) {
-            this.eu_sales = Double.parseDouble(game_values[7]);
-        } else {
-            this.eu_sales = -1;
+        naSales = na;
+
+        Double eu = parseDouble(values[EU_SALES]);
+        if (eu != null) {
+            euSalesSum += eu;
         }
-        if (game_values[8].matches("^\\d+$|^\\d+\\.\\d+$")) {
-            this.jp_sales = Double.parseDouble(game_values[8]);
-        } else {
-            this.jp_sales = -1;
+        euSales = eu;
+
+        Double jp = parseDouble(values[JP_SALES]);
+        if (jp != null) {
+            jpSalesSum += jp;
         }
-        if (game_values[9].matches("^\\d+$|^\\d+\\.\\d+$")) {
-            this.other_sales = Double.parseDouble(game_values[9]);
-        } else {
-            this.other_sales = -1;
+        jpSales = jp;
+
+        Double other = parseDouble(values[OTHER_SALES]);
+        if (other != null) {
+            otherSalesSum += other;
         }
-        if (game_values[10].matches("^\\d+$|^\\d+\\.\\d+$")) {
-            this.global_sales = Double.parseDouble(game_values[10]);
-        } else {
-            this.global_sales = -1;
+        otherSales = other;
+
+        Double global = parseDouble(values[GLOBAL_SALES]);
+        if (global != null) {
+            globalSalesSum += global;
+        }
+        globalSales = global;
+
+        name = values[NAME];
+        platform = values[PLATFORM];
+        genre = values[GENRE];
+        publisher = values[PUBLISHER];
+    }
+
+    public Integer parseInt(String str) {
+        try {
+            return Integer.valueOf(str);
+        } catch (Exception e) {
+            return null;
         }
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getRank() {
-        return rank;
-    }
-
-    public String getPlatform() {
-        return platform;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public double getNa_sales() {
-        return na_sales;
-    }
-
-    public double getEu_sales() {
-        return eu_sales;
-    }
-
-    public double getJp_sales() {
-        return jp_sales;
-    }
-
-    public double getOther_sales() {
-        return other_sales;
-    }
-
-    public double getGlobal_sales() {
-        return global_sales;
+    public Double parseDouble(String str) {
+        try {
+            return Double.valueOf(str);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
@@ -110,11 +107,11 @@ public class Game {
         result += "\nYear: " + year;
         result += "\nGenre: " + genre;
         result += "\nPublisher: " + publisher;
-        result += "\nNA Sales: " + na_sales;
-        result += "\nEU Sales: " + eu_sales;
-        result += "\nJP Sales: " + jp_sales;
-        result += "\nOther Sales: " + other_sales;
-        result += "\nGlobal Sales: " + global_sales;
+        result += "\nNA Sales: " + naSales;
+        result += "\nEU Sales: " + euSales;
+        result += "\nJP Sales: " + jpSales;
+        result += "\nOther Sales: " + otherSales;
+        result += "\nGlobal Sales: " + globalSales;
         result += "\n";
         return result;
     }
