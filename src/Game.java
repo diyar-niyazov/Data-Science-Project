@@ -25,54 +25,48 @@ public class Game {
     private final Double otherSales;
     private final Double globalSales;
 
-    private static int rankSum = 0;
-    private static int yearSum = 0;
-    private static double naSalesSum = 0;
-    private static double euSalesSum = 0;
-    private static double jpSalesSum = 0;
-    private static double otherSalesSum = 0;
-    private static double globalSalesSum = 0;
+    private static final double[] valueSums = new double[10];
 
     public Game(String[] values) {
         Integer r = parseInt(values[RANK]);
         if (r != null) {
-            rankSum += r;
+            valueSums[RANK] += r;
         }
         rank = r;
 
         Integer y = parseInt(values[YEAR]);
         if (y != null) {
-            yearSum += y;
+            valueSums[YEAR] += y;
         }
         year = y;
 
         Double na = parseDouble(values[NA_SALES]);
         if (na != null) {
-            naSalesSum += na;
+            valueSums[NA_SALES] += na;
         }
         naSales = na;
 
         Double eu = parseDouble(values[EU_SALES]);
         if (eu != null) {
-            euSalesSum += eu;
+            valueSums[EU_SALES] += eu;
         }
         euSales = eu;
 
         Double jp = parseDouble(values[JP_SALES]);
         if (jp != null) {
-            jpSalesSum += jp;
+            valueSums[JP_SALES] += jp;
         }
         jpSales = jp;
 
         Double other = parseDouble(values[OTHER_SALES]);
         if (other != null) {
-            otherSalesSum += other;
+            valueSums[OTHER_SALES] += other;
         }
         otherSales = other;
 
         Double global = parseDouble(values[GLOBAL_SALES]);
         if (global != null) {
-            globalSalesSum += global;
+            valueSums[GLOBAL_SALES] += global;
         }
         globalSales = global;
 
@@ -114,5 +108,9 @@ public class Game {
         result += "\nGlobal Sales: " + globalSales;
         result += "\n";
         return result;
+    }
+
+    public static double[] getValueSums() {
+        return valueSums;
     }
 }

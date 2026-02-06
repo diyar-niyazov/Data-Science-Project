@@ -13,13 +13,13 @@ public class Main {
         for (String[] values : valuesArray) {
             gameArray.add(new Game(values));
         }
+        // CorrelationCalculator calc = new CorrelationCalculator(Game.getValueSums());
+        // double[][] correlationCoefficients = calc.getCorrelationCoefficients();
 
-        // double[][] correlationCoefficients = new CorrelationCalculator().getCorrelationCoefficients;
-
-        // display(new double[][] {{-1, 0.3, 0.6}, {0.4, -1, 0.7}, {0.1, 0.9, -1}}, new String[] {"valelelelel1", "val2", "val3"});
+        // display(correlationCoefficients,valuesArray);
     }
 
-    // private static void display(double[][] corrCoeffs, String[] variableNames) {
+    // private static void display(double[][] corrCoeffs, ArrayList<String> variableNames) {
     //     System.out.print("\t");
     //     for(int i = 0; i < variableNames.length; i ++) {
     //         if(variableNames[i].length() >= 8) {

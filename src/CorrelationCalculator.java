@@ -1,9 +1,20 @@
 
 public class CorrelationCalculator {
 
-    public double[][] correlationCoefficients;
-    public double[] valueSums;
-    public double[] valueSquaredSums;
+    private int correlationCoefficient;
+    private int size;
+    private double[][] correlationCoefficients;
+    private double[] valueSums;
+    private double[] valueSquaredSums;
+
+    public CorrelationCalculator(int size, double[] valueSums) {
+        this.size = size;
+        this.valueSums = valueSums;
+        valueSquaredSums = new double[valueSums.length];
+        for (int i = 0; i < valueSums.length; i++) {
+            valueSquaredSums[i] = Math.pow(valueSums[i], 2);
+        }
+    }
 
     /*
      * Pearson's Correlation Coefficient Formula
@@ -12,7 +23,7 @@ public class CorrelationCalculator {
      * Pearson's Correlation Coefficient, given by:
      *
      * r = [n(Σxy) - (Σx)(Σy)] / √{[n(Σx²) - (Σx)²] [n(Σy²) - (Σy)²]}
-     * Copy
+     * 
      * Where:
      *
      * n is the number of data points.
@@ -23,12 +34,10 @@ public class CorrelationCalculator {
      *
      *Σx² and Σy² are the sums of the squares of x and y values.
      */
-    
     public void calculate() {
-        int r = 0;
         int row = 0;
         int column = 0;
-        correlationCoefficients[row][column] = r;
+        // correlationCoefficients[row][column] = r;
     }
 
     public double[][] getCorrelationCoefficients() {
