@@ -1,19 +1,19 @@
 
-public class CorrelationCalculator {
+import java.util.ArrayList;
 
-    private int correlationCoefficient;
-    private int size;
+public class CorrelationCalculator<T> {
+
+    private final int size;
     private double[][] correlationCoefficients;
     private double[] valueSums;
     private double[] valueSquaredSums;
 
-    public CorrelationCalculator(int size, double[] valueSums) {
-        this.size = size;
-        this.valueSums = valueSums;
-        valueSquaredSums = new double[valueSums.length];
+    public CorrelationCalculator(ArrayList<T> objectArrayList) {
+        this.size = objectArrayList.size();
         for (int i = 0; i < valueSums.length; i++) {
             valueSquaredSums[i] = Math.pow(valueSums[i], 2);
         }
+        correlationCoefficients = new double[valueSums.length][valueSums.length];
     }
 
     /*
@@ -34,14 +34,21 @@ public class CorrelationCalculator {
      *
      *Σx² and Σy² are the sums of the squares of x and y values.
      */
-    public void calculate() {
-        int row = 0;
-        int column = 0;
-        // correlationCoefficients[row][column] = r;
+    public double calculate(double xSum, double ySum, double xySum) {
+        double xSumSquared = Math.pow(xSum, 2);
+        double ySumSquared = Math.pow(ySum, 2);
+
+        double numerator = size * xySum - xSum * ySum;
+        double denominator = (Math.sqrt(size * xSumSquared) - Math.pow(xSum, 2)) * (size * ySumSquared - Math.pow(ySum, 2));
+
+        return numerator / denominator;
     }
 
+    //     for(double[] rowValue : correlationCoefficients) {
+    //     for(double colValue : rowValue) {
+    //     }
+    // }
     public double[][] getCorrelationCoefficients() {
-
         return correlationCoefficients;
     }
 }

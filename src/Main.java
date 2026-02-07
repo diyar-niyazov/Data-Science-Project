@@ -1,21 +1,22 @@
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 // Made by Diyar Niyazov and Isaac Novak
+// For Mr. Wuest's 3AC Data Structures and Algorithms
+
 public class Main {
 
-    public static ArrayList<Game> gameArray = new ArrayList<>();
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         ArrayList<String[]> valuesArray = new CSV_Parser("vgsales.csv").getValueArray();
         for (String[] values : valuesArray) {
-            gameArray.add(new Game(values));
+            Game newGame = new Game(values);
+            newGame.printGame();
+            GameList.addGame(new Game(values));
         }
-        // CorrelationCalculator calc = new CorrelationCalculator(Game.getValueSums());
-        // double[][] correlationCoefficients = calc.getCorrelationCoefficients();
 
+        // CorrelationCalculator calculator = new CorrelationCalculator(gameArray);
+        // double[][] correlationCoefficients = calculator.getCorrelationCoefficients();
         // display(correlationCoefficients,valuesArray);
     }
 
