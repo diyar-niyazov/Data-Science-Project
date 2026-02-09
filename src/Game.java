@@ -71,7 +71,7 @@ public class Game {
         };
     }
 
-    public String getValue(Value value) {
+    public String getStringValue(Value value) {
         return switch (value) {
             case NAME ->
                 name;
