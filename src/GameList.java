@@ -75,7 +75,7 @@ public class GameList {
     }
 
     public static HashMap<String, Integer> getStringSums(Value value) {
-        switch(value) {
+        switch (value) {
             case NAME:
                 return getNameFrequencies();
             case PLATFORM:

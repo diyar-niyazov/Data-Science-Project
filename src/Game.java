@@ -26,13 +26,10 @@ public class Game {
     public Integer parseInt(Value value) {
         try {
             String valueString = values[value.index()];
-            if (valueString.equals("N/A")) {
-                return null;
-            }
-            return Integer.valueOf(values[value.index()]);
+            return Integer.parseInt(values[value.index()]);
         } catch (NumberFormatException e) {
             System.out.println(Arrays.toString(values));
-            return null;
+            return 0;
         }
     }
 
@@ -40,31 +37,31 @@ public class Game {
         try {
             String valueString = values[value.index()];
             if (valueString.equals("N/A")) {
-                return null;
+                return 0.0;
             }
             return Double.valueOf(values[value.index()]);
         } catch (NumberFormatException e) {
             System.out.println(Arrays.toString(values));
-            return null;
+            return 0.0;
         }
     }
 
     public double getNumericValue(Value value) {
         return switch (value) {
             case RANK ->
-                rank == null ? Double.NaN : rank.doubleValue();
+                rank == null ? 0 : rank.doubleValue();
             case YEAR ->
-                year == null ? Double.NaN : year.doubleValue();
+                year == null ? 0 : year.doubleValue();
             case NA_SALES ->
-                naSales == null ? Double.NaN : naSales;
+                naSales == null ? 0 : naSales;
             case EU_SALES ->
-                euSales == null ? Double.NaN : euSales;
+                euSales == null ? 0 : euSales;
             case JP_SALES ->
-                jpSales == null ? Double.NaN : jpSales;
+                jpSales == null ? 0 : jpSales;
             case OTHER_SALES ->
-                otherSales == null ? Double.NaN : otherSales;
+                otherSales == null ? 0 : otherSales;
             case GLOBAL_SALES ->
-                globalSales == null ? Double.NaN : globalSales;
+                globalSales == null ? 0 : globalSales;
             default ->
                 throw new IllegalArgumentException(
                         "Non-numeric category: " + value);

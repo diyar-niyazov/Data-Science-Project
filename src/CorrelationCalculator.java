@@ -1,18 +1,20 @@
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CorrelationCalculator<T> {
 
     private final int size;
-    private double[][] correlationCoefficients;
+    private static double[][] correlationCoefficients;
 
     public CorrelationCalculator(ArrayList<T> objectArrayList) {
-        this.size = objectArrayList.size();
+        this.size = 6;
         correlationCoefficients = new double[7][7];
         populateCorrelationCoefficients();
     }
 
     public void populateCorrelationCoefficients() {
+        boolean works = false;
         double xSum = 0;
         double ySum = 0;
         double xySum = 0;
@@ -21,24 +23,35 @@ public class CorrelationCalculator<T> {
         int col = 0;
         for (Value value1 : Value.values()) {
             for (Value value2 : Value.values()) {
-                if (value1 != value2) {
-                    if (value1.isNumeric()) {
-                        xSum += GameList.getSums().get(value1);
+                if (value1.isNumeric() && value2.isNumeric()) {
+                    works = true;
+                    if (value1 != value2) {
+                        if (value1.isNumeric()) {
+                            xSum += GameList.getSums().get(value1);
+                        } else {
+                            // nothing
+                        }
+                        if (value2.isNumeric()) {
+                            ySum += GameList.getSums().get(value2);
+                        } else {
+                            // nothing
+                        }
+                        xySum += GameList.getSums().get(value1) * GameList.getSums().get(value2);
                     }
-                    else {
-                        // nothing
-                    }
-                    if (value2.isNumeric()) {
-                        ySum += GameList.getSums().get(value2);
-                    }
-                    else {
-                        //nothing
-                    }
-                    xySum += GameList.getSums().get(value1) * GameList.getSums().get(value2);
+                } else {
+                    works = false;
+                }
+                System.out.println("ROW: " + row + " COL: " + col);
+                correlationCoefficients[row][col] = calculate(xSum, ySum, xySum);
+                if (works) {
+                    col++;
                 }
             }
+            col = 0;
+            if (works) {
+                row++;
+            }
         }
-        correlationCoefficients[row][col] = calculate(xSum, ySum, xySum);
     }
 
     /*
@@ -71,6 +84,17 @@ public class CorrelationCalculator<T> {
     }
 
     public double[][] getCorrelationCoefficients() {
+        for(int i = 0; i < correlationCoefficients.length; i++) {
+            for(int j = 0; j < correlationCoefficients[i].length; j++) {
+                correlationCoefficients[i][j] *= Math.pow(10,17);
+            }
+        }
         return correlationCoefficients;
+    }
+
+    public static void printCorrelationCoefficients() {
+        for (double[] row : correlationCoefficients) {
+            System.out.println(Arrays.toString(row));
+        }
     }
 }

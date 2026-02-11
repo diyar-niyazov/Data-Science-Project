@@ -14,10 +14,13 @@ public class Main {
             GameList.addGame(newGame);
         }
 
-        String[] valueNames = {"Rank", "Year", "NA Sales", "EU Sales", "JP Sales", "Other Sales", "Global Sales"};
+        // GameList.printMaps();
 
-        Display.draw(new CorrelationCalculator(GameList.getGameList()).getCorrelationCoefficients(), valueNames);
-        GameList.printMaps();
+        String[] valueNames = { "Rank", "Year", "NA Sales", "EU Sales", "JP Sales", "Other Sales", "Global Sales" };
+
+        CorrelationCalculator.printCorrelationCoefficients();
+        // Display.draw(new CorrelationCalculator(GameList.getGameList()).getCorrelationCoefficients(), valueNames);
+        // GameList.printMaps();
 
     }
 }
