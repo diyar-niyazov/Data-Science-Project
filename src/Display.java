@@ -1,23 +1,25 @@
 import java.awt.*;
 
 public class Display {
-    public static void main(String[] args) {
-        String[] valueNames = new String[] {"value1123ajsdhbf", "value2", "value3", "value4", "value5", "value6", "value7", "value8", "value9", "valuea", "valueb"};
-        double[][] corrCoeffs = new double[valueNames.length][valueNames.length];
-        for(int i = 0; i < corrCoeffs.length; i ++) {
-            for(int j = 0; j < corrCoeffs.length; j ++) {
-                corrCoeffs[i][j] = Math.random();
-                if(Math.random() < 0.5) {
-                    corrCoeffs[i][j] *= -1;
-                }
-            }
-        }
-        draw(corrCoeffs, valueNames);
-    }
+
+    // public static void main(String[] args) {
+    //     String[] valueNames = new String[] {"value1123ajsdhbf", "value2kahgdvf", "value3", "value4", "value5asdfghvaskhfgvasdkfhbv asdfknb v", "value6", "value7", "value8", "value9", "valuea", "valueb"};
+    //     double[][] corrCoeffs = new double[valueNames.length][valueNames.length];
+    //     for(int i = 0; i < corrCoeffs.length; i ++) {
+    //         for(int j = 0; j < corrCoeffs.length; j ++) {
+    //             corrCoeffs[i][j] = Math.random();
+    //             if(Math.random() < 0.5) {
+    //                 corrCoeffs[i][j] *= -1;
+    //             }
+    //         }
+    //     }
+    //     draw(corrCoeffs, valueNames);
+    // }
+
     public static void draw(double[][] corrCoeffs, String[] valueNames) {
         //Check invalid parameters
         int width = 1800;
-        int height = 1080;
+        int height = 600;
         int numValues = valueNames.length;
 
         if(width % (numValues + 1) != 0) {
