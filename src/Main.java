@@ -14,32 +14,10 @@ public class Main {
             GameList.addGame(newGame);
         }
 
+        String[] valueNames = {"Rank", "Year", "NA Sales", "EU Sales", "JP Sales", "Other Sales", "Global Sales"};
+
+        Display.draw(new CorrelationCalculator(GameList.getGameList()).getCorrelationCoefficients(), valueNames);
         GameList.printMaps();
 
-        // CorrelationCalculator calculator = new CorrelationCalculator(gameArray);
-        // double[][] correlationCoefficients = calculator.getCorrelationCoefficients();
-        // display(correlationCoefficients,valuesArray);
     }
-
-    // private static void display(double[][] corrCoeffs, ArrayList<String>
-    // variableNames) {
-    // System.out.print("\t");
-    // for(int i = 0; i < variableNames.length; i ++) {
-    // if(variableNames[i].length() >= 8) {
-    // variableNames[i] = variableNames[i].substring(0, 4) + "...";
-    // }
-    // System.out.print("|\t" + variableNames[i] + "\t");
-    // }
-    // for(int i = 0; i < corrCoeffs.length; i ++) {
-    // System.out.println();
-    // System.out.print(variableNames[i] + "\t");
-    // for(int j = 0; j < corrCoeffs[i].length; j ++) {
-    // if(i == j) {
-    // System.out.print("|\txxx\t");
-    // } else {
-    // System.out.print("|\t" + corrCoeffs[i][j] + "\t");
-    // }
-    // }
-    // }
-    // }
 }

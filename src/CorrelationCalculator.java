@@ -5,27 +5,40 @@ public class CorrelationCalculator<T> {
 
     private final int size;
     private double[][] correlationCoefficients;
-    private double[] valueSums;
-    private double[] valueSquaredSums;
 
     public CorrelationCalculator(ArrayList<T> objectArrayList) {
         this.size = objectArrayList.size();
-        for (int i = 0; i < valueSums.length; i++) {
-            valueSquaredSums[i] = Math.pow(valueSums[i], 2);
-        }
-        correlationCoefficients = new double[valueSums.length][valueSums.length];
+        correlationCoefficients = new double[7][7];
+        populateCorrelationCoefficients();
     }
 
-    public double[][] getCorrelationCoefficients() {
-        double xSum, ySum, xySum;
+    public void populateCorrelationCoefficients() {
+        double xSum = 0;
+        double ySum = 0;
+        double xySum = 0;
+
+        int row = 0;
+        int col = 0;
         for (Value value1 : Value.values()) {
             for (Value value2 : Value.values()) {
                 if (value1 != value2) {
-                    xSum += GameList.getSums().get(value1);
+                    if (value1.isNumeric()) {
+                        xSum += GameList.getSums().get(value1);
+                    }
+                    else {
+                        // nothing
+                    }
+                    if (value2.isNumeric()) {
+                        ySum += GameList.getSums().get(value2);
+                    }
+                    else {
+                        //nothing
+                    }
+                    xySum += GameList.getSums().get(value1) * GameList.getSums().get(value2);
                 }
             }
         }
-        return correlationCoefficients;
+        correlationCoefficients[row][col] = calculate(xSum, ySum, xySum);
     }
 
     /*
@@ -57,4 +70,7 @@ public class CorrelationCalculator<T> {
         return numerator / denominator;
     }
 
+    public double[][] getCorrelationCoefficients() {
+        return correlationCoefficients;
+    }
 }

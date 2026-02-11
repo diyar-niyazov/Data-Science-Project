@@ -74,19 +74,34 @@ public class GameList {
         return sums;
     }
 
-    public static HashMap<String, Integer> getNamefrequencies() {
+    public static HashMap<String, Integer> getStringSums(Value value) {
+        switch(value) {
+            case NAME:
+                return getNameFrequencies();
+            case PLATFORM:
+                return getPlatformFrequencies();
+            case GENRE:
+                return getGenreFrequencies();
+            case PUBLISHER:
+                return getPublisherFrequencies();
+            default:
+                return getNameFrequencies();
+        }
+    }
+
+    public static HashMap<String, Integer> getNameFrequencies() {
         return nameFrequencies;
     }
 
-    public static HashMap<String, Integer> getPlatformfrequencies() {
+    public static HashMap<String, Integer> getPlatformFrequencies() {
         return platformFrequencies;
     }
 
-    public static HashMap<String, Integer> getGenrefrequencies() {
+    public static HashMap<String, Integer> getGenreFrequencies() {
         return genreFrequencies;
     }
 
-    public static HashMap<String, Integer> getPublisher() {
+    public static HashMap<String, Integer> getPublisherFrequencies() {
         return publisherFrequencies;
     }
 
@@ -96,5 +111,9 @@ public class GameList {
         System.out.println(platformFrequencies + "\n");
         System.out.println(genreFrequencies + "\n");
         System.out.println(publisherFrequencies + "\n");
+    }
+
+    public static ArrayList<Game> getGameList() {
+        return gameList;
     }
 }
