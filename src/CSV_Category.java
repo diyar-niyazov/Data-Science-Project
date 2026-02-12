@@ -1,5 +1,8 @@
+// Enum representing the different columns/categories in the CSV file.
+// Each constant indicates whether the field is numeric (true) or categorical/text (false).
+// Provides helper methods to check if a field is numeric and to get its column index in the CSV.
 
-public enum Value {
+public enum CSV_Category {
     RANK(true),
     NAME(false),
     PLATFORM(false),
@@ -14,7 +17,7 @@ public enum Value {
 
     private final boolean numeric;
 
-    Value(boolean numeric) {
+    CSV_Category(boolean numeric) {
         this.numeric = numeric;
     }
 

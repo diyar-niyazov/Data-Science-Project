@@ -1,26 +1,48 @@
 
 import java.util.ArrayList;
 
-// Made by Diyar Niyazov and Isaac Novak
-// For Mr. Wuest's 3AC Data Structures and Algorithms
+/**
+Video Game Sales Correlation Coefficient Calculator
+ __  __    _    ____  _____   ______   __ 
+|  \/  |  / \  |  _ \| ____| | __ ) \ / / 
+| |\/| | / _ \ | | | |  _|   |  _ \\ V (_)
+| |  | |/ ___ \| |_| | |___  | |_) || | _ 
+|_|  |_/_/   \_\____/|_____| |____/ |_|(_)
+
+ ____  _                    _   _ _                              ___   
+|  _ \(_)_   _  __ _ _ __  | \ | (_)_   _  __ _ _________   __  ( _ )  
+| | | | | | | |/ _` | '__| |  \| | | | | |/ _` |_  / _ \ \ / /  / _ \/\
+| |_| | | |_| | (_| | |    | |\  | | |_| | (_| |/ / (_) \ V /  | (_>  <
+|____/|_|\__, |\__,_|_|    |_| \_|_|\__, |\__,_/___\___/ \_/    \___/\/
+         |___/                      |___/                              
+
+ ___                        _   _                 _    
+|_ _|___  __ _  __ _  ___  | \ | | _____   ____ _| | __
+ | |/ __|/ _` |/ _` |/ __| |  \| |/ _ \ \ / / _` | |/ /
+ | |\__ \ (_| | (_| | (__  | |\  | (_) \ V / (_| |   < 
+|___|___/\__,_|\__,_|\___| |_| \_|\___/ \_/ \__,_|_|\_\
+                                                       
+Mr. Wuest - 3AC Data Structures and Algorithms
+*/
 
 public class Main {
 
     public static void main(String[] args) {
 
-        ArrayList<String[]> valuesArray = new CSV_Parser("vgsales.csv").getValueArray();
+        ArrayList<String[]> valuesArray = new CSV_Parser("vgsales.csv").getValuesArray();
+
+        GameList gameList = new GameList();
         for (String[] values : valuesArray) {
-            Game newGame = new Game(values);
-            GameList.addGame(newGame);
+            Game game = new Game(values);
+            gameList.addGame(game);
         }
 
-        // GameList.printMaps();
+         CorrelationCalculator calculator = new CorrelationCalculator(gameList.getGames());
+         calculator.printCorrelationCoefficients();
 
-        String[] valueNames = { "Rank", "Year", "NA Sales", "EU Sales", "JP Sales", "Other Sales", "Global Sales" };
+        // String[] values = { "Rank", "Year", "NA Sales", "EU Sales", "JP Sales", "Other Sales", "Global Sales" };
 
-        CorrelationCalculator.printCorrelationCoefficients();
-        // Display.draw(new CorrelationCalculator(GameList.getGameList()).getCorrelationCoefficients(), valueNames);
-        // GameList.printMaps();
+        // CorrelationCalculator.printCorrelationCoefficients();
 
     }
 }

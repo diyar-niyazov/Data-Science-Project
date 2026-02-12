@@ -1,100 +1,53 @@
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class CorrelationCalculator<T> {
+public class CorrelationCalculator {
 
-    private final int size;
-    private static double[][] correlationCoefficients;
+    private ArrayList<Game> games;
+    private ArrayList<ArrayList<Double>> correlationCoefficients;
 
-    public CorrelationCalculator(ArrayList<T> objectArrayList) {
-        this.size = 6;
-        correlationCoefficients = new double[7][7];
+    public CorrelationCalculator(ArrayList<Game> games) {
+        this.games = games;
         populateCorrelationCoefficients();
     }
 
     public void populateCorrelationCoefficients() {
-        boolean works = false;
-        double xSum = 0;
-        double ySum = 0;
-        double xySum = 0;
+        int n = games.size();
+        BigDecimal xSum = BigDecimal.ZERO, xSquaredSum = BigDecimal.ZERO,
+                ySum = BigDecimal.ZERO, ySquaredSum = BigDecimal.ZERO,
+                xySum = BigDecimal.ZERO;
 
-        int row = 0;
-        int col = 0;
-        for (Value value1 : Value.values()) {
-            for (Value value2 : Value.values()) {
-                if (value1.isNumeric() && value2.isNumeric()) {
-                    works = true;
-                    if (value1 != value2) {
-                        if (value1.isNumeric()) {
-                            xSum += GameList.getSums().get(value1);
-                        } else {
-                            // nothing
+        ArrayList<Double> row = new ArrayList<>();
+
+        for (CSV_Category x : CSV_Category.values()) {
+            for (CSV_Category y : CSV_Category.values()) {
+                if (x != y) {
+                    if (x.isNumeric() && y.isNumeric()) {
+                        for (Game game : games) {
+                            double xField = game.getNumericField(x);
+                            double yField = game.getNumericField(y);
+                            xSum.add(new BigDecimal(xField));
+                            xSquaredSum.add(new BigDecimal(Math.pow(xField, 2)));
+                            ySum.add(new BigDecimal(yField));
+                            ySquaredSum.add(new BigDecimal(Math.pow(yField, 2)));
+                            xySum.add(new BigDecimal(xField * yField));
                         }
-                        if (value2.isNumeric()) {
-                            ySum += GameList.getSums().get(value2);
-                        } else {
-                            // nothing
-                        }
-                        xySum += GameList.getSums().get(value1) * GameList.getSums().get(value2);
+                        System.out.println("VALUE 1: " + x + "\nVALUE 2: " + y);
+                        System.out.println("X SUM: " + xSum + "\nX SQUARED SUM: " + xSquaredSum + "\nY SUM: " + ySum + "\nY SQUARED SUM: " + ySquaredSum + "\nXY SUM: " + xySum);
+                        row.add(new CorrelationCoefficient(games.size(), xSum, xSquaredSum, ySum, ySquaredSum, xySum).calculate());
                     }
-                } else {
-                    works = false;
-                }
-                System.out.println("ROW: " + row + " COL: " + col);
-                correlationCoefficients[row][col] = calculate(xSum, ySum, xySum);
-                if (works) {
-                    col++;
                 }
             }
-            col = 0;
-            if (works) {
-                row++;
-            }
+            correlationCoefficients.add(row);
         }
+        System.out.println("xSum " + xSum + " xSquaredSum " + xSquaredSum + " ySum " + ySum + " ySquaredSum " + ySquaredSum + " xySum " + xySum);
     }
 
-    /*
-     * Pearson's Correlation Coefficient Formula
-     *
-     * The most commonly used formula for calculating the correlation coefficient is
-     * Pearson's Correlation Coefficient, given by:
-     *
-     * r = [n(Σxy) - (Σx)(Σy)] / √{[n(Σx²) - (Σx)²] [n(Σy²) - (Σy)²]}
-     *
-     * Where:
-     *
-     * n is the number of data points.
-     *
-     * Σxy is the sum of the product of corresponding x and y values.
-     *
-     * Σx and Σy are the sums of x and y values, respectively.
-     *
-     * Σx² and Σy² are the sums of the squares of x and y values.
-     */
-    public double calculate(double xSum, double ySum, double xySum) {
-        double xSumSquared = Math.pow(xSum, 2);
-        double ySumSquared = Math.pow(ySum, 2);
-
-        double numerator = size * xySum - xSum * ySum;
-        double denominator = (Math.sqrt(size * xSumSquared) - Math.pow(xSum, 2))
-                * (size * ySumSquared - Math.pow(ySum, 2));
-
-        return numerator / denominator;
-    }
-
-    public double[][] getCorrelationCoefficients() {
-        for(int i = 0; i < correlationCoefficients.length; i++) {
-            for(int j = 0; j < correlationCoefficients[i].length; j++) {
-                correlationCoefficients[i][j] *= Math.pow(10,17);
-            }
-        }
-        return correlationCoefficients;
-    }
-
-    public static void printCorrelationCoefficients() {
-        for (double[] row : correlationCoefficients) {
-            System.out.println(Arrays.toString(row));
+    public void printCorrelationCoefficients() {
+        for (ArrayList<Double> row : correlationCoefficients) {
+            System.out.println(Arrays.toString(row.toArray()));
         }
     }
 }

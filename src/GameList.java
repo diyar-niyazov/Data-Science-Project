@@ -3,117 +3,76 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 
+// Stores a collection of Game objects
+// Stores numeric field sums for numeric categories
+// Store frequency counts for categorical categories
 public class GameList {
 
-    private static final ArrayList<Game> gameList = new ArrayList<>();
-    private static final EnumMap<Value, Double> sums = new EnumMap<>(Value.class);
-    private static final HashMap<String, Integer> nameFrequencies = new HashMap<>();
-    private static final HashMap<String, Integer> platformFrequencies = new HashMap<>();
-    private static final HashMap<String, Integer> genreFrequencies = new HashMap<>();
-    private static final HashMap<String, Integer> publisherFrequencies = new HashMap<>();
+    private final ArrayList<Game> games = new ArrayList<>();
+    private final EnumMap<CSV_Category, Double> sums = new EnumMap<>(CSV_Category.class);
+    private final EnumMap<CSV_Category, HashMap<String, Integer>> frequencies = new EnumMap<>(CSV_Category.class);
 
-    public static void addGame(Game game) {
-        gameList.add(game);
+    // Initialize categorical maps
+    public GameList() {
+        frequencies.put(CSV_Category.NAME, new HashMap<>());
+        frequencies.put(CSV_Category.PLATFORM, new HashMap<>());
+        frequencies.put(CSV_Category.GENRE, new HashMap<>());
+        frequencies.put(CSV_Category.PUBLISHER, new HashMap<>());
+    }
 
-        for (Value value : Value.values()) {
+    // Adds a Game object to the 'games' list and updates all numeric sums and categorical frequencies
+    public void addGame(Game game) {
+        games.add(game);
+
+        for (CSV_Category value : CSV_Category.values()) {
             if (value.isNumeric()) {
-                numericIncrement(game, value);
+                incrementNumericValue(game, value);
             } else {
-                HashMap<String, Integer> map;
-                switch (value) {
-                    case NAME:
-                        map = nameFrequencies;
-                        break;
-                    case PLATFORM:
-                        map = platformFrequencies;
-                        break;
-                    case GENRE:
-                        map = genreFrequencies;
-                        break;
-                    case PUBLISHER:
-                        map = publisherFrequencies;
-                        break;
-                    default:
-                        map = nameFrequencies;
-                }
-                stringIncrement(game, map, value);
+                incrementCategoricalValue(game, value);
             }
         }
     }
 
-    public static void numericIncrement(Game game, Value value) {
-        if (sums.containsKey(value)) {
-            sums.put(value, sums.get(value) + game.getNumericValue(value));
-        } else {
-            sums.put(value, game.getNumericValue(value));
-        }
+    // Increments sum with given numeric value
+    public void incrementNumericValue(Game game, CSV_Category value) {
+        sums.put(value, sums.getOrDefault(value, 0.0) + game.getNumericField(value));
     }
 
-    public static void stringIncrement(Game game, HashMap<String, Integer> map, Value value) {
-        if (value == Value.NAME) {
-            String name = game.getStringValue(value);
-            String[] words = name.split(" ");
-            for (String word : words) {
-                word = word.replaceAll("\\p{Punct}", "");
-                if (map.containsKey(word)) {
-                    map.put(word, map.get(word) + 1);
-                } else {
-                    map.put(word, 1);
-                }
-            }
-        } else {
-            if (map.containsKey(game.getStringValue(value))) {
-                map.put(game.getStringValue(value), map.get(game.getStringValue(value)) + 1);
-            } else {
-                map.put(game.getStringValue(value), 1);
-            }
-        }
+    // Increments frequency with given categorical value
+    public void incrementCategoricalValue(Game game, CSV_Category value) {
+        HashMap<String, Integer> map = frequencies.get(value);
+        String field = game.getCategoricalField(value);
+        map.put(field, map.getOrDefault(field, 0) + 1);
     }
 
-    public static EnumMap<Value, Double> getSums() {
+    public EnumMap<CSV_Category, Double> getSum() {
         return sums;
     }
 
-    public static HashMap<String, Integer> getStringSums(Value value) {
-        switch (value) {
-            case NAME:
-                return getNameFrequencies();
-            case PLATFORM:
-                return getPlatformFrequencies();
-            case GENRE:
-                return getGenreFrequencies();
-            case PUBLISHER:
-                return getPublisherFrequencies();
-            default:
-                return getNameFrequencies();
-        }
+    public HashMap<String, Integer> getFrequency(CSV_Category value) {
+        return switch (value) {
+            case NAME ->
+                frequencies.get(value);
+            case PLATFORM ->
+                frequencies.get(value);
+            case GENRE ->
+                frequencies.get(value);
+            case PUBLISHER ->
+                frequencies.get(value);
+            default ->
+                frequencies.get(value);
+        };
     }
 
-    public static HashMap<String, Integer> getNameFrequencies() {
-        return nameFrequencies;
-    }
-
-    public static HashMap<String, Integer> getPlatformFrequencies() {
-        return platformFrequencies;
-    }
-
-    public static HashMap<String, Integer> getGenreFrequencies() {
-        return genreFrequencies;
-    }
-
-    public static HashMap<String, Integer> getPublisherFrequencies() {
-        return publisherFrequencies;
-    }
-
-    public static void printMaps() {
+    public void printMaps() {
         System.out.println(sums + "\n");
-        System.out.println(nameFrequencies + "\n");
-        System.out.println(platformFrequencies + "\n");
-        System.out.println(genreFrequencies + "\n");
-        System.out.println(publisherFrequencies + "\n");
+        System.out.println(frequencies.get(CSV_Category.NAME) + "\n");
+        System.out.println(frequencies.get(CSV_Category.PLATFORM) + "\n");
+        System.out.println(frequencies.get(CSV_Category.GENRE) + "\n");
+        System.out.println(frequencies.get(CSV_Category.PUBLISHER) + "\n");
     }
 
-    public static ArrayList<Game> getGameList() {
-        return gameList;
+    public ArrayList<Game> getGames() {
+        return games;
     }
 }

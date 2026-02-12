@@ -1,39 +1,34 @@
+
 import java.util.Arrays;
 
 public class Game {
 
     private final String[] values;
-    private final Integer rank, year;
     private final String name, platform, genre, publisher;
-    private final Double naSales, euSales, jpSales, otherSales, globalSales;
+    private final Double rank, year, naSales, euSales, jpSales, otherSales, globalSales;
 
+    // Constructs a Game object from a CSV row represented as String[]
+    // Parses numeric values and stores categorical values
     public Game(String[] values) {
         this.values = values;
-        rank = parseInt(Value.RANK);
-        year = parseInt(Value.YEAR);
-        naSales = parseDouble(Value.NA_SALES);
-        euSales = parseDouble(Value.EU_SALES);
-        jpSales = parseDouble(Value.JP_SALES);
-        otherSales = parseDouble(Value.OTHER_SALES);
-        globalSales = parseDouble(Value.GLOBAL_SALES);
 
-        name = values[Value.NAME.index()];
-        platform = values[Value.PLATFORM.index()];
-        genre = values[Value.GENRE.index()];
-        publisher = values[Value.PUBLISHER.index()];
+        rank = parseDoubleField(CSV_Category.RANK);
+        year = parseDoubleField(CSV_Category.YEAR);
+        naSales = parseDoubleField(CSV_Category.NA_SALES);
+        euSales = parseDoubleField(CSV_Category.EU_SALES);
+        jpSales = parseDoubleField(CSV_Category.JP_SALES);
+        otherSales = parseDoubleField(CSV_Category.OTHER_SALES);
+        globalSales = parseDoubleField(CSV_Category.GLOBAL_SALES);
+
+        name = values[CSV_Category.NAME.index()];
+        platform = values[CSV_Category.PLATFORM.index()];
+        genre = values[CSV_Category.GENRE.index()];
+        publisher = values[CSV_Category.PUBLISHER.index()];
     }
 
-    public Integer parseInt(Value value) {
-        try {
-            String valueString = values[value.index()];
-            return Integer.parseInt(values[value.index()]);
-        } catch (NumberFormatException e) {
-            System.out.println(Arrays.toString(values));
-            return 0;
-        }
-    }
-
-    public Double parseDouble(Value value) {
+    // Safely parses a double from the CSV row based on the CSV_Category enum
+    // Treats "N/A" as 0.0
+    public Double parseDoubleField(CSV_Category value) {
         try {
             String valueString = values[value.index()];
             if (valueString.equals("N/A")) {
@@ -46,12 +41,15 @@ public class Game {
         }
     }
 
-    public double getNumericValue(Value value) {
+    // Returns the double value corresponding to the given CSV_Category enum
+    // Returns 0 for any null value
+    // Throws exception if the value is non-numeric
+    public double getNumericField(CSV_Category value) {
         return switch (value) {
             case RANK ->
-                rank == null ? 0 : rank.doubleValue();
+                rank == null ? 0 : rank;
             case YEAR ->
-                year == null ? 0 : year.doubleValue();
+                year == null ? 0 : year;
             case NA_SALES ->
                 naSales == null ? 0 : naSales;
             case EU_SALES ->
@@ -68,7 +66,9 @@ public class Game {
         };
     }
 
-    public String getStringValue(Value value) {
+    // Returns the string value corresponding to the given Value enum
+    // Throws exception if the Value is non-text
+    public String getCategoricalField(CSV_Category value) {
         return switch (value) {
             case NAME ->
                 name;
@@ -84,6 +84,7 @@ public class Game {
         };
     }
 
+    // Prints all fields of the Game object in a readable format
     public void printGame() {
         System.out.println("Rank: " + rank
                 + "\nName: " + name

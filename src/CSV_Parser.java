@@ -5,25 +5,27 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// Parses the CSV file and stores each value in a String array in an ArrayList
+// Parses a CSV file and stores each line as an ArrayList of String arrays
 public class CSV_Parser {
 
-    private final String fileName;
     private final File CSV_FILE;
     private final ArrayList<String[]> valuesArray = new ArrayList<>();
 
     public CSV_Parser(String fileName) {
-        this.fileName = fileName;
-        CSV_FILE = Paths.get("assets", this.fileName).toFile();
+        CSV_FILE = Paths.get("assets", fileName).toFile();
         parseCSV();
     }
 
+    // Reads and splits the CSV file into an array
     public void parseCSV() {
         String line;
         try (Scanner scanner = new Scanner(CSV_FILE)) {
+
+            // Skips header
             if (scanner.hasNextLine()) {
                 scanner.nextLine();
             }
+
             while (scanner.hasNextLine()) {
                 line = scanner.nextLine();
                 if (line.contains("\"")) {
@@ -36,6 +38,7 @@ public class CSV_Parser {
         }
     }
 
+    // Removes commas within quoted text to avoid splitting inside quotes
     public static String removeInnerCommas(String line) {
         boolean inQuotes = false;
         StringBuilder result = new StringBuilder();
@@ -44,7 +47,7 @@ public class CSV_Parser {
                 inQuotes = !inQuotes;
             }
             if (inQuotes && c == ',') {
-                result.append(" ");
+                result.append("");
             } else {
                 result.append(c);
             }
@@ -52,7 +55,8 @@ public class CSV_Parser {
         return result.toString();
     }
 
-    public ArrayList<String[]> getValueArray() {
+    // Returns the parsed CSV file as an ArrayList of String arrays
+    public ArrayList<String[]> getValuesArray() {
         return valuesArray;
     }
 }
