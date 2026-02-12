@@ -37,12 +37,24 @@ public class Main {
             gameList.addGame(game);
         }
 
+        gameList.printMaps();
+
          CorrelationCalculator calculator = new CorrelationCalculator(gameList.getGames());
          calculator.printCorrelationCoefficients();
 
-        // String[] values = { "Rank", "Year", "NA Sales", "EU Sales", "JP Sales", "Other Sales", "Global Sales" };
+        String[] values = { "Rank", "Year", "NA Sales", "EU Sales", "JP Sales", "Other Sales", "Global Sales" };
+        ArrayList<ArrayList<Double>> list = calculator.getCorrelationCoefficients();
+        int rows = list.size();
+        int cols = list.get(0).size();
+        double[][] correlationCoefficients = new double[rows][cols];
 
-        // CorrelationCalculator.printCorrelationCoefficients();
+        for(int i = 0; i < rows; i++) {
+            ArrayList<Double> row = list.get(i);
+            for(int j = 0; j < cols; j++) {
+                correlationCoefficients[i][j] = row.get(j);
+            }
+        }
+        Display.draw(correlationCoefficients, values);
 
     }
 }

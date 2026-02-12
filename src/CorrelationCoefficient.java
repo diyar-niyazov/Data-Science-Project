@@ -1,5 +1,6 @@
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class CorrelationCoefficient {
 
@@ -35,13 +36,18 @@ public class CorrelationCoefficient {
      */
     public double calculate() {
 
+        BigDecimal numerator = xySum.multiply(BigDecimal.valueOf(n))
+                .subtract(xSum.multiply(ySum));
 
-        BigDecimal numerator = xSum.multiply(BigDecimal.valueOf(n)).subtract(xSum.multiply(ySum));
-        BigDecimal denominator = xSquaredSum.multiply(BigDecimal.valueOf(n)).subtract(xSum.pow(2)).multiply(ySquaredSum.multiply(2).subtract(ySum.pow(2)));
-        denominator = math.
-        System.out.println("NUMERATOR: " + numerator);
-        System.out.println("DENOMINATOR: " + denominator);
-        r = numerator / denominator;
+        BigDecimal denominator = (xSquaredSum.multiply(BigDecimal.valueOf(n))
+                .subtract(xSum.pow(2)))
+                .multiply(ySquaredSum.multiply(BigDecimal.valueOf(n)).subtract(ySum.pow(2)));
+
+        // System.out.println("NUMERATOR: " + numerator);
+        // System.out.println("DENOMINATOR: " + denominator);
+        denominator = BigDecimal.valueOf(Math.sqrt(denominator.doubleValue()));
+        r = numerator.divide(denominator, 5, RoundingMode.HALF_UP).doubleValue();
+        return r;
     }
 }
 
