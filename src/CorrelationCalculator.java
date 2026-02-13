@@ -51,6 +51,7 @@ public class CorrelationCalculator {
         }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     public double[][] getCorrelationCoefficients() {
         double[][] result = new double[correlationCoefficients.size()][correlationCoefficients.size()];
@@ -61,6 +62,8 @@ public class CorrelationCalculator {
         }
         return result;
     }
+=======
+>>>>>>> parent of d6fbca4 (Fully Functional)
 =======
 >>>>>>> parent of d6fbca4 (Fully Functional)
 }

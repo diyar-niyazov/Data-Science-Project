@@ -41,6 +41,7 @@ public class Main {
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         gameList.printMaps();
 
         CorrelationCalculator calculator = new CorrelationCalculator(gameList.getGames());
@@ -50,6 +51,8 @@ public class Main {
         double[][] correlationCoefficients = calculator.getCorrelationCoefficients();
         Display.draw(correlationCoefficients, values);
 =======
+=======
+>>>>>>> parent of d6fbca4 (Fully Functional)
          CorrelationCalculator calculator = new CorrelationCalculator(gameList.getGames());
          calculator.printCorrelationCoefficients();
 
