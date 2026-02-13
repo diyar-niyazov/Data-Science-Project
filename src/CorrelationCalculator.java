@@ -58,7 +58,13 @@ public class CorrelationCalculator {
         }
     }
 
-    public ArrayList<ArrayList<Double>> getCorrelationCoefficients() {
-        return correlationCoefficients;
+    public double[][] getCorrelationCoefficients() {
+        double[][] result = new double[correlationCoefficients.size()][correlationCoefficients.size()];
+        for(int i = 0; i < correlationCoefficients.size(); i++) {
+            for(int j = 0; j < correlationCoefficients.size(); j++) {
+                result[i][j] = correlationCoefficients.get(i).get(j);
+            }
+        }
+        return result;
     }
 }

@@ -29,7 +29,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ArrayList<String[]> valuesArray = new CSV_Parser("vgsales.csv").getValuesArray();
+        CSV_Parser parser = new CSV_Parser("assets", "vgsales.csv");
+        parser.parseCSV();
+        ArrayList<String[]> valuesArray = parser.getValuesArray();
+
 
         GameList gameList = new GameList();
         for (String[] values : valuesArray) {
@@ -39,22 +42,12 @@ public class Main {
 
         gameList.printMaps();
 
-         CorrelationCalculator calculator = new CorrelationCalculator(gameList.getGames());
-         calculator.printCorrelationCoefficients();
+        CorrelationCalculator calculator = new CorrelationCalculator(gameList.getGames());
+        calculator.printCorrelationCoefficients();
 
-        String[] values = { "Rank", "Year", "NA Sales", "EU Sales", "JP Sales", "Other Sales", "Global Sales" };
-        ArrayList<ArrayList<Double>> list = calculator.getCorrelationCoefficients();
-        int rows = list.size();
-        int cols = list.get(0).size();
-        double[][] correlationCoefficients = new double[rows][cols];
-
-        for(int i = 0; i < rows; i++) {
-            ArrayList<Double> row = list.get(i);
-            for(int j = 0; j < cols; j++) {
-                correlationCoefficients[i][j] = row.get(j);
-            }
-        }
+        String[] values = {"Rank", "Year", "NA Sales", "EU Sales", "JP Sales", "Other Sales", "Global Sales"};
+        double[][] correlationCoefficients = calculator.getCorrelationCoefficients();
         Display.draw(correlationCoefficients, values);
-
     }
+
 }

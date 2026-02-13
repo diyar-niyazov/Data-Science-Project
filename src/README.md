@@ -1,26 +1,8 @@
 # TODO Improvements for Video Game Sales Project
 
----
-
-## Main
-
-**Improve:**
-- Accept filename from `args` instead of hardcoding.
-- Add guard for empty CSV before accessing `list.get(0)`.
-- Remove manual `ArrayList → double[][]` conversion.
-- Let `CorrelationCalculator` return `double[][]` directly.
-- Fix minor formatting inconsistencies.
-- Do not print inside logic classes — keep `Main` as orchestrator only.
-
----
-
 ## CSV_Parser
 
 **Improve:**
-- Do NOT call `parseCSV()` inside constructor.
-- Make `parseCSV()` private (or rename to `parse()` and call explicitly).
-- Remove hardcoded `"assets"` path — accept full path.
-- Do NOT return internal mutable `ArrayList`; return unmodifiable list.
 - Replace `File + Scanner` with `Files.readAllLines(Path)` (modern Java).
 - Make `removeInnerCommas()` private.
 - Remove console printing inside catch block (throw or handle properly).

@@ -11,9 +11,8 @@ public class CSV_Parser {
     private final File CSV_FILE;
     private final ArrayList<String[]> valuesArray = new ArrayList<>();
 
-    public CSV_Parser(String fileName) {
-        CSV_FILE = Paths.get("assets", fileName).toFile();
-        parseCSV();
+    public CSV_Parser(String directory, String fileName) {
+        CSV_FILE = Paths.get(directory, fileName).toFile();
     }
 
     // Reads and splits the CSV file into an array
@@ -39,7 +38,7 @@ public class CSV_Parser {
     }
 
     // Removes commas within quoted text to avoid splitting inside quotes
-    public static String removeInnerCommas(String line) {
+    private static String removeInnerCommas(String line) {
         boolean inQuotes = false;
         StringBuilder result = new StringBuilder();
         for (char c : line.toCharArray()) {
@@ -57,6 +56,6 @@ public class CSV_Parser {
 
     // Returns the parsed CSV file as an ArrayList of String arrays
     public ArrayList<String[]> getValuesArray() {
-        return valuesArray;
+        return new ArrayList<String[]>(valuesArray);
     }
 }
