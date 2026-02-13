@@ -66,10 +66,10 @@ public class GameList {
 
     public void printMaps() {
         System.out.println(sums + "\n");
-        // System.out.println(frequencies.get(CSV_Category.NAME) + "\n");
+        System.out.println(frequencies.get(CSV_Category.NAME) + "\n");
         System.out.println(frequencies.get(CSV_Category.PLATFORM) + "\n");
         System.out.println(frequencies.get(CSV_Category.GENRE) + "\n");
-        // System.out.println(frequencies.get(CSV_Category.PUBLISHER) + "\n");
+        System.out.println(frequencies.get(CSV_Category.PUBLISHER) + "\n");
     }
 
     public ArrayList<Game> getGames() {

@@ -40,6 +40,7 @@ public class Main {
             gameList.addGame(game);
         }
 
+<<<<<<< HEAD
         gameList.printMaps();
 
         CorrelationCalculator calculator = new CorrelationCalculator(gameList.getGames());
@@ -48,6 +49,15 @@ public class Main {
         String[] values = {"Rank", "Year", "NA Sales", "EU Sales", "JP Sales", "Other Sales", "Global Sales"};
         double[][] correlationCoefficients = calculator.getCorrelationCoefficients();
         Display.draw(correlationCoefficients, values);
+=======
+         CorrelationCalculator calculator = new CorrelationCalculator(gameList.getGames());
+         calculator.printCorrelationCoefficients();
+
+        // String[] values = { "Rank", "Year", "NA Sales", "EU Sales", "JP Sales", "Other Sales", "Global Sales" };
+
+        // CorrelationCalculator.printCorrelationCoefficients();
+
+>>>>>>> parent of d6fbca4 (Fully Functional)
     }
 
 }
